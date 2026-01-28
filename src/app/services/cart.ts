@@ -10,6 +10,7 @@ export class CartService {
     { id: 3, name: 'KINGONE Stylus Pen', price: 39, quantity: 1, imageUrl: "assets/images/products/product-3.jpg" }
   ];
 
+
   private itemsSubject = new BehaviorSubject<any[]>(this.initialItems);
   items$ = this.itemsSubject.asObservable();
 
