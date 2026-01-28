@@ -1,0 +1,116 @@
+:host {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.cart-item {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: box-shadow 0.3s;
+}
+
+.cart-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Image */
+.product-img {
+  width: 100px;
+  height: 100px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-img img {
+  max-width: 80%;
+  max-height: 80%;
+}
+
+/* Infos */
+.product-info {
+  flex-grow: 1;
+}
+
+.product-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+  color: #1a1a1a;
+}
+
+.product-desc {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+/* Ligne d'actions */
+.actions-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.qty-selector {
+  display: flex;
+  align-items: center;
+  background: #f4f4f4;
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.qty-selector button {
+  border: none;
+  background: none;
+  padding: 5px 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.qty-selector .qty {
+  padding: 0 10px;
+  font-weight: 600;
+}
+
+.action-link {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.action-link:hover {
+  color: #0167F3; /* Votre couleur primaire */
+}
+
+/* Prix */
+.product-price {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.unit-price {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.total-price {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #1a1a1a;
+}

@@ -1,0 +1,97 @@
+.summary-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.0.1);
+  gap: 20px;
+  transition: box-shadow 0.3s;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.label-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #666;
+}
+
+.icon-box {
+  width: 35px;
+  height: 35px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
+.icon-box.green {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.value {
+  font-weight: 600;
+  color: #333;
+}
+
+.total-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.total-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #000;
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+}
+
+.form-control:focus {
+  border-color: #0167F3;
+  box-shadow: none;
+}
+
+/* Boutons */
+.btn-checkout {
+  background-color: #1a1a1a;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.btn-checkout:hover {
+  background-color: #0167F3; /* Utilise votre couleur primaire au hover */
+}
+
+.address-section {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+
+.btn-group .btn.active {
+  background-color: #1a1a1a;
+  border-color: #1a1a1a;
+}
+
+.continue-link {
+  color: #666;
+  font-weight: 500;
+}
+
+.continue-link:hover {
+  color: #0167F3;
+}

@@ -1,0 +1,81 @@
+<div class="summary-card mb-2 mt-3 p-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="m-0">Order summary</h3>
+    <span class="text-muted">{{ (cartService.items$ | async)?.length }} items</span>
+  </div>
+
+  <div class="summary-details">
+    <div class="detail-item">
+      <div class="label-with-icon">
+        <div class="icon-box"><i class="lni lni-package"></i></div>
+        <span>Subtotal</span>
+      </div>
+      <span class="value">${{ (cartService.subtotal$ | async) | number:'1.2-2' }}</span>
+    </div>
+
+    <div class="detail-item">
+      <div class="label-with-icon">
+        <div class="icon-box"><i class="lni lni-delivery"></i></div>
+        <span>Shipping</span>
+      </div>
+      <span class="value text-success">Free</span>
+    </div>
+
+    <div class="detail-item">
+      <div class="label-with-icon">
+        <div class="icon-box"><i class="lni lni-credit-cards"></i></div>
+        <span>Tax (8%)</span>
+      </div>
+      <span class="value">${{ ((cartService.subtotal$ | async) || 0) * 0.08 | number:'1.2-2' }}</span>
+    </div>
+
+    <div class="detail-item coupon">
+      <div class="label-with-icon">
+        <div class="icon-box green"><i class="lni lni-tag"></i></div>
+        <span class="text-success">Coupon (DUO10)</span>
+      </div>
+      <span class="value text-success">-${{ ((cartService.subtotal$ | async) || 0) * 0.10 | number:'1.2-2' }}</span>
+    </div>
+  </div>
+
+  <hr class="my-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <span class="total-label">Total</span>
+    <span class="total-value" style="color: #0167F3; font-weight: 800; font-size: 1.4rem;">
+        ${{ ((cartService.subtotal$ | async) || 0) * 0.98 | number:'1.2-2' }}
+    </span>
+  </div>
+
+  <div class="input-group mb-4">
+    <input type="text" class="form-control border-end-0" placeholder="duo10" style="background-color: #f8f9fa;">
+    <button class="btn btn-dark px-4" type="button">Apply</button>
+  </div>
+
+  <div class="address-section mb-4 p-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <span class="fw-bold"><i class="lni lni-home me-2"></i>Shipping address</span>
+      <a href="#" class="text-decoration-none" style="color: #0167F3;">Edit</a>
+    </div>
+    <input type="text" class="form-control mb-2" placeholder="Full name">
+    <input type="text" class="form-control mb-3" placeholder="Street, city, ZIP">
+    <button class="btn w-100 btn-dark py-2">Save address</button>
+  </div>
+
+  <div class="payment-methods mb-4">
+    <p class="fw-bold mb-2">Payment</p>
+    <div class="btn-group w-100">
+      <button class="btn btn-dark active"><i class="lni lni-credit-cards me-2"></i>Card</button>
+      <button class="btn btn-outline-secondary">UPI</button>
+      <button class="btn btn-outline-secondary">Wallet</button>
+    </div>
+  </div>
+
+  <button class="btn text-white w-100 py-3 mb-3" style="background-color: #0167F3; font-weight: bold; border-radius: 8px;">
+    Checkout <i class="lni lni-arrow-right ms-2"></i>
+  </button>
+
+  <div class="text-center">
+    <a href="#" class="continue-link text-decoration-none text-muted">Continue shopping</a>
+  </div>
+</div>

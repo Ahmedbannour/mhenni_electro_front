@@ -1,0 +1,93 @@
+<div class="login-wrapper">
+  <div class="login-card m-5">
+
+    <h3 class="title">Create Account</h3>
+    <p class="subtitle">Please fill in the information below.</p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" class="form-control" formControlName="firstName" />
+        <small class="error" *ngIf="submitted && f['firstName'].errors">
+          First name is required
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" class="form-control" formControlName="lastName" />
+        <small class="error" *ngIf="submitted && f['lastName'].errors">
+          Last name is required
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="example@email.com"
+          formControlName="email"
+        />
+        <small class="error" *ngIf="submitted && f['email'].errors">
+          Enter a valid email
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input
+          type="tel"
+          class="form-control"
+          placeholder="+216..."
+          formControlName="phone"
+        />
+        <small class="error" *ngIf="submitted && f['phone'].errors">
+          Invalid phone number
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Birth Date</label>
+        <input type="date" class="form-control" formControlName="birthDate" />
+        <small class="error"
+          *ngIf="submitted && f['birthDate'].errors?.['minAge']">
+          You must be at least 12 years old
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" formControlName="password" />
+        <small class="error" *ngIf="submitted && f['password'].errors">
+          8 chars, upper, lower, number & symbol
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="confirmPassword"
+        />
+        <small class="error"
+          *ngIf="submitted && registerForm.errors?.['passwordMismatch']">
+          Passwords do not match
+        </small>
+      </div>
+
+      <button type="submit" class="btn-login">
+        Register
+      </button>
+
+    </form>
+
+    <div class="extra-links">
+      <span></span>
+      <a routerLink="/login">Already have an account?</a>
+    </div>
+
+  </div>
+</div>

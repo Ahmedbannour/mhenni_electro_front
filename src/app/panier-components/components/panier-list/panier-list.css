@@ -1,0 +1,32 @@
+.panel-list{
+  background-color: white;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.0.1);
+  gap: 20px;
+  transition: box-shadow 0.3s;
+}.panier-list{
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #f1f5f9;
+}.panier-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.panier-list::-webkit-scrollbar-track {
+  background: #f1f5f9;        /* gris clair */
+  border-radius: 10px;
+}
+
+.panier-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6, #2563eb); /* bleu moderne */
+  border-radius: 10px;
+}
+
+.panier-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #2563eb, #1e40af);
+}
+

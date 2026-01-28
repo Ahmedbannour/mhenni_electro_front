@@ -1,0 +1,32 @@
+<div class="cart-item" style="max-height: 300px; overflow-y: auto;">
+  <div class="product-img">
+    <img [src]="item.imageUrl" [alt]="item.name">
+  </div>
+
+  <div class="product-info">
+    <div class="text-content">
+      <h3 class="product-name">{{ item.name }}</h3>
+      <p class="product-desc">{{ item.description }}</p>
+    </div>
+
+    <div class="actions-row">
+      <div class="qty-selector">
+        <button (click)="decrement()">-</button>
+        <span class="qty">{{ item.quantity }}</span>
+        <button (click)="increment()">+</button>
+      </div>
+
+      <button class="action-link text-danger">
+        <i class="lni lni-trash-can"></i> Remove
+      </button>
+      <button class="action-link">
+        <i class="lni lni-bookmark"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="product-price">
+    <span class="unit-price">${{ item.price }}</span>
+    <span class="total-price">${{ item.price * item.quantity | number:'1.2-2' }}</span>
+  </div>
+</div>
