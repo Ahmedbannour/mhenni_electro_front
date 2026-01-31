@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
+import { ProductItem } from "./components/product-item/product-item";
+import { CartService } from '../services/cart';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-products-component',
-  imports: [],
+  imports: [ProductItem , CommonModule],
   templateUrl: './products-component.html',
   styleUrl: './products-component.css',
 })
@@ -12,7 +15,8 @@ import { Router, RouterLink } from "@angular/router";
 export class ProductsComponent {
   constructor(private router: Router) {}
 
-  goToDetails(id: number) {
-    this.router.navigate(['/products', id]);
-  }
+  public cartService = inject(CartService);
+  items$ = this.cartService.items$;
+
+
 }

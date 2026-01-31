@@ -1,4 +1,4 @@
- <section class="trending-product">
+ <section *ngIf="item" class="trending-product">
   <div class="container ">
       <div class="row">
           <div class="col-md-12 m-5">
@@ -9,19 +9,17 @@
                       <span class="badge-best-seller">BEST SELLER</span>
 
                       <div class="product-main-slider">
-                        @for (img of images; track img) {
-                          <div class="slider-item">
-                            <img [src]="img" alt="Product Image">
-                          </div>
-                        }
+                        <div class="slider-item">
+                          <img [src]="item.image" alt="Product Image">
+                        </div>
                       </div>
                     </div>
 
-                    <div class="thumbnail-nav-wrapper">
+                    <!-- <div class="thumbnail-nav-wrapper">
                       <button id="prev-btn" class="nav-arrow"><i class="lni lni-chevron-left"></i></button>
 
                       <ul id="customize-thumbnails" class="thumbnail-list">
-                        @for (img of images; track img) {
+                        @for (img of item.images; track img) {
                           <li>
                             <img [src]="img" alt="thumbnail">
                           </li>
@@ -29,7 +27,7 @@
                       </ul>
 
                       <button id="next-btn" class="nav-arrow"><i class="lni lni-chevron-right"></i></button>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="product-info col-md-6 col-xs-12">
                       <ul class="review">
@@ -41,7 +39,7 @@
                           <li><span>4.0 Review(s)</span></li>
                       </ul>
                       <h2 class="title">
-                          <a href="#" style="font-size: 32px">Xiaomi Mi Band 5</a>
+                          <a href="#" style="font-size: 32px">{{ item.label }}</a>
                       </h2>
 
 
@@ -67,23 +65,22 @@
 
                       <div class="product-pricing-container">
                         <div class="price-row">
-                          <h1 class="current-price">$520.00</h1>
-                          <span class="original-price">$650.00</span>
+                          <h1 class="current-price">${{ (item.price * 0.8).toFixed(2) }}</h1>
+                          <span class="original-price">${{ item.price}}</span>
                           <div class="discount-badge">20%</div>
                         </div>
 
                         <hr class="price-divider">
 
                         <p class="price-info-text">
-                          This setup may require Wi-Fi connectivity and a compatible
-                          voice assistant (Alexa, Google Home).
+                          {{ item.description }}
                         </p>
                       </div>
 
                       <div class="action-section">
                         <div class="status-info">
                           <div class="stock-status">
-                            <span class="dot green"></span> In stock
+                            <span class="dot green"></span> {{ item.quantity > 3 ? "In Stock" : "Out of Stock" }}
                           </div>
                           <div class="shipping-status">
                             <i class="icon-truck"></i> Free shipping from $99
