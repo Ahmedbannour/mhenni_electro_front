@@ -1,1 +1,31 @@
-<p>contact-form works!</p>
+<div class="form-card">
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <div class="row-inputs">
+      <div class="input-group">
+        <label>First Name</label>
+        <input type="text" formControlName="firstName" placeholder="Enter your first name...">
+      </div>
+      <div class="input-group">
+        <label>Last Name</label>
+        <input type="text" formControlName="lastName" placeholder="Enter your last name...">
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" formControlName="email" placeholder="Enter your email address...">
+    </div>
+
+    <div class="input-group">
+      <label>How can we help you?</label>
+      <textarea formControlName="message" rows="5" placeholder="Enter your message..."></textarea>
+    </div>
+
+    <div class="button-container">
+      <button type="submit" class="btn-send">
+        Send Message
+        <span class="icon-arrow">→</span>
+      </button>
+    </div>
+  </form>
+</div>

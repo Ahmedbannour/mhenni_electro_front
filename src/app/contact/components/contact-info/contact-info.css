@@ -1,0 +1,54 @@
+.contact-container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  max-width: 600px;
+  padding: 40px;
+  color: #1a1a1a;
+  line-height: 1.6;
+}
+
+.contact-title {
+  font-size: 4rem; /* Très grand comme sur l'image */
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  letter-spacing: -2px;
+}
+
+.contact-description {
+  font-size: 1.15rem;
+  color: #555;
+  margin-bottom: 3rem;
+  max-width: 90%;
+}
+
+.info-group {
+  margin-bottom: 2rem;
+}
+
+.info-group label {
+  display: block;
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.info-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
+  text-decoration: none;
+  margin-bottom: 0.2rem;
+}
+
+.info-note {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .contact-title {
+    font-size: 2.5rem;
+  }
+}
