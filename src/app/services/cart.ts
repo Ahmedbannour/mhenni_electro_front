@@ -103,5 +103,5 @@ export class CartService {
   getProductById(id: number) {
     return this.itemsSubject.value.find(p => p.id === id);
   }
-  
+
 }

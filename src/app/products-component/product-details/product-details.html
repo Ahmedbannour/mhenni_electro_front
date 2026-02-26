@@ -1,4 +1,4 @@
- <section *ngIf="item" class="trending-product">
+ <section *ngIf="product" class="trending-product">
   <div class="container ">
       <div class="row">
           <div class="col-md-12 m-5">
@@ -10,7 +10,7 @@
 
                       <div class="product-main-slider">
                         <div class="slider-item">
-                          <img [src]="item.image" alt="Product Image">
+                          <img [src]="product.image" alt="Product Image">
                         </div>
                       </div>
                     </div>
@@ -39,7 +39,7 @@
                           <li><span>4.0 Review(s)</span></li>
                       </ul>
                       <h2 class="title">
-                          <a href="#" style="font-size: 32px">{{ item.label }}</a>
+                          <a href="#" style="font-size: 32px">{{ product.label }}</a>
                       </h2>
 
 
@@ -65,22 +65,22 @@
 
                       <div class="product-pricing-container">
                         <div class="price-row">
-                          <h1 class="current-price">${{ (item.price * 0.8).toFixed(2) }}</h1>
-                          <span class="original-price">${{ item.price}}</span>
+                          <h1 class="current-price">${{ (product.price * 0.8).toFixed(2) }}</h1>
+                          <span class="original-price">${{ product.price}}</span>
                           <div class="discount-badge">20%</div>
                         </div>
 
                         <hr class="price-divider">
 
                         <p class="price-info-text">
-                          {{ item.description }}
+                          {{ product.description }}
                         </p>
                       </div>
 
                       <div class="action-section">
                         <div class="status-info">
                           <div class="stock-status">
-                            <span class="dot green"></span> {{ item.quantity > 3 ? "In Stock" : "Out of Stock" }}
+                            <span class="dot green"></span> {{ 10 > 3 ? "In Stock" : "Out of Stock" }}
                           </div>
                           <div class="shipping-status">
                             <i class="icon-truck"></i> Free shipping from $99
@@ -100,9 +100,7 @@
                         <div class="description-section">
                           <h3 class="desc-title">Description</h3>
                           <p class="desc-content">
-                            A plug-and-play smart lighting kit that transforms your home's atmosphere.
-                            Adjust brightness, color temperature, and mood scenes using your phone or voice.
-                            Engineered for convenience, elegance, and energy savings.
+                            {{product.description}}
                           </p>
                         </div>
                       </div>

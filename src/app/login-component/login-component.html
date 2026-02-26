@@ -37,7 +37,7 @@
       </div>
 
       <!-- Submit -->
-      <button type="submit" class="btn-login">
+      <button type="submit" class="btn-login" >
         Login
       </button>
 
@@ -48,5 +48,9 @@
       <a href="#">Forgot password?</a>
     </div>
 
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
   </div>
 </div>

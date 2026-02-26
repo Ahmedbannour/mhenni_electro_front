@@ -1,0 +1,14 @@
+<ul class="sub-category">
+  <li *ngFor="let cat of categoriesList">
+    <a [routerLink]="['category/', cat.id]">
+      {{ cat.name }}
+      <i *ngIf="cat.subCategories && cat.subCategories.length > 0" class="lni lni-chevron-right"></i>
+    </a>
+
+    <ul class="inner-sub-category" *ngIf="cat.subCategories && cat.subCategories.length > 0">
+      <li *ngFor="let sub of cat.subCategories">
+        <a [routerLink]="['category/', sub.id]">{{ sub.name }}</a>
+      </li>
+    </ul>
+  </li>
+</ul>

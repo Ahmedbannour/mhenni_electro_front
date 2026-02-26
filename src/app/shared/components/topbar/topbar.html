@@ -42,20 +42,36 @@
               </div>
           </div>
           <div class="col-lg-4 col-md-4 col-12">
-              <div class="top-end">
-                  <div class="user">
-                      <i class="lni lni-user"></i>
-                      Hello
-                  </div>
-                  <ul class="user-login">
+            <div class="top-end">
+              @if (authService.isLoggedIn()) {
+              <div class="dropdown top-user-dropdown">
+                  <button class="user-toggle d-flex align-items-center gap-2" type="button">
+                      <img src="assets/images/user.jpg" alt="profile" class="client-img">
+                      <span class="client-name">Hello , {{ userName }}</span>
+                      <i class="lni lni-chevron-down"></i>
+                  </button>
+
+                  <ul class="dropdown-menu shadow border-0">
                       <li>
-                          <a routerLink="login">Sign In</a>
+                          <a class="dropdown-item" routerLink="/client/settings">
+                              <i class="lni lni-cog"></i> Settings
+                          </a>
                       </li>
+                      <li><hr class="dropdown-divider"></li>
                       <li>
-                          <a routerLink="register">Register</a>
+                          <button class="dropdown-item text-danger" (click)="onLogout()">
+                              <i class="lni lni-exit"></i> Logout
+                          </button>
                       </li>
                   </ul>
               </div>
+              } @else {
+              <ul class="user-login">
+                  <li><a routerLink="/login">Sign In</a></li>
+                  <li><a routerLink="/register">Register</a></li>
+              </ul>
+              }
+            </div>
           </div>
       </div>
   </div>

@@ -1,0 +1,167 @@
+/* Fixe la taille de l'image pour qu'elle ne soit pas géante */
+.client-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f0f0f0;
+    transition: 0.3s;
+}
+
+.client-img:hover {
+    border-color: #39b54a; /* Ou la couleur primaire de ta template */
+}
+
+/* Reset du bouton pour qu'il soit invisible derrière l'image */
+.dropdown-toggle-custom {
+    background: none;
+    border: none;
+    padding: 0;
+    outline: none;
+}
+
+/* Style moderne pour le dropdown menu */
+.dropdown-menu {
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 15px !important; /* Espacement sous l'image */
+    border: none;
+}
+
+.dropdown-item {
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-item i {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.top-user-dropdown .user-toggle {
+  background: transparent;
+  border: none;
+  color: #fff;
+}
+
+.top-user-dropdown .client-img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.top-user-dropdown .client-name {
+  font-weight: 500;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* Enlever la flèche Bootstrap */
+.top-user-dropdown .dropdown-toggle::after {
+  display: none;
+}
+.top-end .select-position {
+    position: relative;
+}
+
+
+.top-end .select-position select {
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    border: none;
+    padding: 0 10px 0 0px;
+    color: #fff !important;
+    font-weight: 500;
+    font-size: 14px;
+    background-color: #081828 !important;
+}
+
+/* --- Logique de Survol (Hover) --- */
+.top-user-dropdown {
+    position: relative;
+}
+
+.top-user-dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    top: 100%; /* S'affiche juste en dessous */
+}
+
+/* --- Style du Bouton (Inspiré de la Topbar) --- */
+.user-toggle {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-toggle i {
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+.user-toggle:hover {
+    color: #39b54a; /* Couleur accent de ShopGrids */
+}
+
+/* --- Image de l'utilisateur --- */
+.client-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Style du Dropdown Menu (Inspiré du Footer/Dark Design) --- */
+.top-user-dropdown .dropdown-menu {
+    display: block; /* Nécessaire pour l'animation */
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    background: #081828; /* Couleur de fond sombre de la template */
+    min-width: 180px;
+    padding: 15px 0;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    z-index: 99;
+    top: 120%; /* Départ légèrement plus bas pour l'effet de montée */
+    right: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.top-user-dropdown .dropdown-item {
+    color: #eee;
+    font-size: 13px;
+    padding: 8px 20px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.top-user-dropdown .dropdown-item i {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.top-user-dropdown .dropdown-item:hover {
+    color: #39b54a; /* Couleur verte de ShopGrids */
+    padding-left: 25px; /* Petit effet de décalage au hover */
+}
+
+.top-user-dropdown .dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 10px 0;
+}

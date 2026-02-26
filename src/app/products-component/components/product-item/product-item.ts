@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Product } from '../../../shared/models/Product';
 
 @Component({
   selector: 'app-product-item',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ProductItem {
     constructor(private router: Router) {}
-    @Input() item: any;
+    @Input() product: Product | null = null;
 
 
     goToDetails(id: number) {

@@ -1,20 +1,32 @@
- <section class="trending-product section" style="margin-top: 12px;">
+<section class="trending-product section" style="margin-top: 12px;">
   <div class="container">
-      <div class="row">
-          <div class="col-12">
-              <div class="section-title">
-                  <h2>Trending Product</h2>
-                  <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                      suffered alteration in some form.</p>
-              </div>
-          </div>
-      </div>
-      <div class="row">
-        <div
-          class="col-lg-3 col-md-6 col-12"
-          *ngFor="let item of items$ | async">
-          <app-product-item [item]="item"></app-product-item>
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title">
+          <h2>{{ products.length > 0 ? 'Nos Produits' : 'Aucun produit trouvé' }}</h2>
+          <p>Découvrez notre sélection exclusive de produits de haute qualité adaptés à vos besoins.</p>
         </div>
       </div>
+    </div>
+
+    <div *ngIf="loading" class="row justify-content-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!loading">
+      <div class="col-lg-3 col-md-6 col-12" *ngFor="let prod of products">
+        <app-product-item [product]="prod"></app-product-item>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="!loading && products.length === 0">
+        <div class="col-12 text-center mt-5">
+            <i class="lni lni-search-alt" style="font-size: 50px; color: #bbb;"></i>
+            <p class="mt-3">Désolé, nous n'avons pas trouvé de produits dans cette catégorie pour le moment.</p>
+            <a routerLink="/produits" class="btn btn-primary mt-2">Voir tous les produits</a>
+        </div>
+    </div>
   </div>
 </section>
