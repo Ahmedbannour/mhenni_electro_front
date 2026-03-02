@@ -1,0 +1,17 @@
+/* Empêche le tableau de couper les menus déroulants */
+.table-responsive {
+    overflow: visible !important;
+}
+
+/* Si vous tenez à garder le scroll sur mobile uniquement */
+@media (max-width: 991px) {
+    .table-responsive {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Assure que le menu s'affiche au premier plan */
+.dropdown-menu {
+    z-index: 1050;
+}

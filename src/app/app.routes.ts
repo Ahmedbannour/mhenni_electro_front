@@ -1,40 +1,53 @@
 import { Routes } from '@angular/router';
-import { Home } from './home/home';
-import { Contact } from './contact/contact';
-import { LoginComponent } from './login-component/login-component';
-import { RegisterComponent } from './register-component/register-component';
-import { ProductsComponent } from './products-component/products-component';
-import { ProductDetails } from './products-component/product-details/product-details';
-import { PanierComponents } from './panier-components/panier-components';
 import { roleGuard } from './guards/role-guard';
-import { AdminDashboardComponent } from './admin-dashboard-component/admin-dashboard-component';
+import { Home } from './layouts/client-layout/home/home';
+import { Contact } from './layouts/client-layout/contact/contact';
+import { LoginComponent } from './layouts/client-layout/login-component/login-component';
+import { RegisterComponent } from './layouts/client-layout/register-component/register-component';
+import { ProductsComponent } from './layouts/client-layout/products-component/products-component';
+import { ProductDetails } from './layouts/client-layout/products-component/product-details/product-details';
+import { PanierComponents } from './layouts/client-layout/panier-components/panier-components';
+import { AdminLayout } from './layouts/admin-layout/admin-layout';
+import { ClientLayout } from './layouts/client-layout/client-layout';
+import { AdminHome } from './layouts/admin-layout/components/admin-home/admin-home';
+import { ClientsWidget } from './layouts/admin-layout/components/clients-widget/clients-widget';
 
 export const routes: Routes = [
-  { path: 'home', component: Home },
-  { path: 'contact', component: Contact },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'products/:id', component: ProductDetails },
-  { path: 'panier', component: PanierComponents },
-  { path: 'category/:id', component: ProductsComponent }, // Par catégorie
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-
-  // Dashboard ADMIN
+  // GROUPE CLIENT : Toutes ces routes utiliseront le ClientLayout (avec Navbar/Footer)
   {
-    path: 'admin-dashboard',
-    component: AdminDashboardComponent,
-    canActivate: [roleGuard],
-    data: { role: 'ROLE_ADMIN' }
+    path: '',
+    component: ClientLayout,
+    children: [
+      { path: 'home', component: Home },
+      { path: 'contact', component: Contact },
+      { path: 'products', component: ProductsComponent },
+      { path: 'products/:id', component: ProductDetails },
+      { path: 'panier', component: PanierComponents },
+      { path: 'category/:id', component: ProductsComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ]
   },
 
-  // Dashboard CLIENT
+  // GROUPE AUTH : Pages sans Navbar (souvent plein écran)
+
+
+  // GROUPE ADMIN : Utilise uniquement l'AdminLayout
   {
-    path: 'client-dashboard',
-    component: Home,
+    path: 'admin',
+    component: AdminLayout,
     canActivate: [roleGuard],
-    data: { role: 'ROLE_USER' }
+    data: { role: 'ROLE_ADMIN' },
+    children: [
+      { path: 'clients', component: ClientsWidget },
+      { path: 'depots', component: LoginComponent },
+      { path: 'home', component: AdminHome },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+
+    ]
   },
 
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
