@@ -11,6 +11,8 @@ import { AdminLayout } from './layouts/admin-layout/admin-layout';
 import { ClientLayout } from './layouts/client-layout/client-layout';
 import { AdminHome } from './layouts/admin-layout/components/admin-home/admin-home';
 import { ClientsWidget } from './layouts/admin-layout/components/clients-widget/clients-widget';
+import { DepotWidget } from './layouts/admin-layout/components/depot-widget/depot-widget';
+import { ProductsAdminWidget } from './layouts/admin-layout/components/products-admin-widget/products-admin-widget';
 
 export const routes: Routes = [
   // GROUPE CLIENT : Toutes ces routes utiliseront le ClientLayout (avec Navbar/Footer)
@@ -42,7 +44,8 @@ export const routes: Routes = [
     data: { role: 'ROLE_ADMIN' },
     children: [
       { path: 'clients', component: ClientsWidget },
-      { path: 'depots', component: LoginComponent },
+      { path: 'depots', component: DepotWidget },
+      { path: 'products', component: ProductsAdminWidget },
       { path: 'home', component: AdminHome },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
 

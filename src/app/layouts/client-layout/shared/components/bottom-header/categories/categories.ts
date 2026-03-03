@@ -15,7 +15,7 @@ export class CategorieService {
   constructor(private http: HttpClient) {}
 
   getAllCategories(): Observable<Categorie[]> {
-    console.log('0');
+
     return this.http.get<any>('http://localhost:8081/categories').pipe(
       map(response => {
         console.log("dataa  : ", response.data);

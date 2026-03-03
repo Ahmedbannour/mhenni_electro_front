@@ -1,0 +1,9 @@
+.prod-card{
+  transition: all 0.4s ease-in-out;
+}
+
+.prod-card:hover{
+  background-color: var(--bs-info-bg-subtle) !important;
+  transform: translateY(-5px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

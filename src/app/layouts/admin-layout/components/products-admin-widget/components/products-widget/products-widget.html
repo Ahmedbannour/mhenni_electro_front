@@ -1,0 +1,63 @@
+<div class="row">
+  <ng-container *ngIf="categories.length === 0 && products.length > 0">
+    <div class="col-12 mb-3 d-flex justify-content-between align-items-center">
+      <h5 class="fw-semibold">Produits dans "{{ currentCategoryName }}"</h5>
+      <button class="btn btn-sm btn-primary" (click)="onAddProduct.emit()">+ Ajouter un produit</button>
+    </div>
+    <div class="col-md-4 col-sm-6" *ngFor="let prod of products">
+      <div class="card border shadow-none">
+        <img [src]="prod.image || 'assets/images/products/s1.jpg'" class="card-img-top" alt="...">
+        <div class="card-body p-3">
+          <h6 class="fw-semibold mb-0">{{ prod.name }}</h6>
+          <p class="text-muted fs-2 mb-0">{{ prod.price }} DT</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="col-12" *ngIf="categories.length === 0 && products.length === 0">
+    <div class="card shadow-none border p-5 text-center bg-light-subtle rounded-4">
+      <i class="ti ti-package-off fs-10 text-muted mb-3"></i>
+      <h4 class="fw-bold">Cette catégorie est encore vierge</h4>
+      <p>Souhaitez-vous créer des sous-catégories ou commencer à vendre des produits ?</p>
+
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <button class="btn btn-outline-primary px-4" (click)="onAddSubCat.emit()">
+          <i class="ti ti-category-plus fs-5 me-2"></i> Créer Sous-catégories
+        </button>
+        <button class="btn btn-primary px-4" (click)="onAddProduct.emit()">
+          <i class="ti ti-plus fs-5 me-2"></i> Ajouter des Produits
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-lg-4 d-flex align-items-stretch" *ngFor="let cat of categories">
+    <div class="card w-100 prod-card border shadow-none cursor-pointer"
+         (click)="selectCategory(cat)"
+         style="transition: transform 0.2s; cursor: pointer;">
+      <div class="p-4 d-flex align-items-stretch h-100">
+        <div class="row w-100">
+          <div class="col-4 col-md-3 d-flex align-items-center">
+            <div class="bg-light-primary text-primary rounded p-3 d-flex align-items-center justify-content-center w-100">
+               <i class="ti ti-category fs-7"></i>
+            </div>
+          </div>
+          <div class="col-8 col-md-9 d-flex align-items-center">
+            <div>
+              <h6 class="fw-semibold text-dark fs-4 mb-1">{{ cat.name | uppercase }}</h6>
+              <p class="card-subtitle text-muted mb-2">{{ cat.description }}</p>
+
+              <span *ngIf="cat.subCategories?.length > 0" class="badge bg-light-primary text-primary">
+                {{ cat.subCategories.length }} Sous-catégories <i class="ti ti-chevron-right ms-1"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+    <div class="card-body px-4 py-3">
+      <div class="row align-items-center">
+        <div class="col-9">
+          <h4 class="fw-semibold mb-8">Navigation Catégories</h4>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a class="text-primary text-decoration-none" href="javascript:void(0)" (click)="navigateTo(-1)">Home</a>
+              </li>
+              <li class="breadcrumb-item" [class.active]="breadcrumb.length === 0">
+                <a class="text-muted text-decoration-none" href="javascript:void(0)" (click)="navigateTo(-1)">Categories</a>
+              </li>
+              <li class="breadcrumb-item" *ngFor="let step of breadcrumb; let i = index" [class.active]="i === breadcrumb.length - 1">
+                <a class="text-muted text-decoration-none" href="javascript:void(0)" (click)="navigateTo(i)">{{ step.name }}</a>
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-3 text-center">
+          <img src="../assets/images/banner/banner-3.png" alt="img" class="img-fluid mb-n4">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="currentCategories.length > 0 && currentProducts.length == 0" class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
+    <div class="card-body px-4 py-3">
+      <div class="row align-items-center">
+        <div class="col-9">
+          <h4 class="fw-semibold mb-8">Gestion des Catégories</h4>
+          <nav aria-label="breadcrumb">
+              </nav>
+        </div>
+        <div class="col-3 text-end">
+          <button class="btn btn-primary" (click)="handleAddCategory()">
+            <i class="ti ti-plus me-1"></i> Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <app-products-widget
+    [categories]="currentCategories"
+    [products]="currentProducts"
+    [currentCategoryName]="breadcrumb.length > 0 ? breadcrumb[breadcrumb.length - 1].name : 'Toutes les catégories'"
+    (onSelect)="onCategorySelect($event)"
+    (onAddSubCat)="handleAddSubCategory($event)"
+    (onAddProduct)="handleAddProduct($event)">
+  </app-products-widget>
+</div>

@@ -37,12 +37,17 @@ export class ProductsComponent implements OnInit {
     const request = categoryId ? this.productService.getProductsByCategory(categoryId): this.productService.getAllProducts();
 
     request.subscribe({
-      next: (data) => {
-        this.products = data;
-        console.log("loadproduct : " , data);
+      next: (response) => {
+        if (response.status === 'success') {
 
-        this.loading = false;
-        this.cdr.detectChanges();
+            this.products = response.data;
+            console.log("loadproduct : " , response.data);
+
+            this.loading = false;
+            this.cdr.detectChanges();
+          } else {
+            alert("Erreur: " + response.message);
+          }
       },
 
       error: (err) => {
