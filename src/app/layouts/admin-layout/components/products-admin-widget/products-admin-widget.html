@@ -42,12 +42,77 @@
     </div>
   </ng-container>
 
+  <div *ngIf="alertMessage" [class]="'alert alert-dismissible fade show animate__animated animate__fadeInDown ' + alertClass" role="alert">
+    <div class="d-flex align-items-center">
+      <i [class]="'ti ' + (alertClass === 'alert-success' ? 'ti-circle-check' : 'ti-alert-circle') + ' fs-5 me-2'"></i>
+      {{ alertMessage }}
+    </div>
+    <button type="button" class="btn-close" (click)="alertMessage = null"></button>
+  </div>
+
   <app-products-widget
     [categories]="currentCategories"
     [products]="currentProducts"
+    [isLoading]="isLoading"
     [currentCategoryName]="breadcrumb.length > 0 ? breadcrumb[breadcrumb.length - 1].name : 'Toutes les catégories'"
     (onSelect)="onCategorySelect($event)"
     (onAddSubCat)="handleAddSubCategory($event)"
     (onAddProduct)="handleAddProduct($event)">
   </app-products-widget>
+
+
+  <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header d-flex align-items-center">
+          <h5 class="modal-title" id="addProductModalLabel">Ajouter un nouveau produit</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form [formGroup]="productForm" (ngSubmit)="submitProduct()">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Libellé (Label)</label>
+                <input type="text" class="form-control" formControlName="label" placeholder="ex: Machine à laver">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Référence</label>
+                <input type="text" class="form-control" formControlName="ref" placeholder="ex: REF-2024-001">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Prix (DT)</label>
+                <input type="number" class="form-control" formControlName="price">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Date d'achat</label>
+                <input type="date" class="form-control" formControlName="date_achat">
+              </div>
+              <div class="col-12 mb-3">
+                <label class="form-label fw-semibold">Catégorie de destination</label>
+                <select class="form-select" formControlName="categorie">
+                  <option [ngValue]="null" disabled>Sélectionnez une catégorie</option>
+                  <option *ngFor="let leaf of leafCategories" [ngValue]="leaf">
+                    {{ leaf.name }}
+                  </option>
+                </select>
+                <div *ngIf="productForm.get('categorie')?.invalid && productForm.get('categorie')?.touched" class="text-danger fs-2">
+                  La catégorie est obligatoire.
+                </div>
+              </div>
+              <div class="col-12 mb-3">
+                <label class="form-label fw-semibold">Description</label>
+                <textarea class="form-control" formControlName="description" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">
+              Enregistrer le produit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

@@ -12,6 +12,8 @@ export class ProductsWidget {
   @Input() categories: any[] = [];
   @Input() products: any[] = []; // Nouvelle entrée pour les produits
   @Input() currentCategoryName: string = '';
+  @Input() isLoading: boolean = false;
+
 
   @Output() onSelect = new EventEmitter<any>();
   @Output() onAddSubCat = new EventEmitter<void>();
@@ -20,11 +22,41 @@ export class ProductsWidget {
 
   private cdr = inject(ChangeDetectorRef);
 
+  // Pagination & Tri
+  currentPage: number = 1;
+  pageSize: number = 5;
+  sortColumn: string = 'name';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
 
   selectCategory(cat: any) {
     this.onSelect.emit(cat);
     this.cdr.detectChanges();
 
+  }
+
+  get filteredProducts() {
+    let sorted = [...this.products].sort((a, b) => {
+      const res = a[this.sortColumn] < b[this.sortColumn] ? -1 : a[this.sortColumn] > b[this.sortColumn] ? 1 : 0;
+      return this.sortDirection === 'asc' ? res : -res;
+    });
+
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    return sorted.slice(startIndex, startIndex + this.pageSize);
+  }
+
+  get totalPages() {
+    return Math.ceil(this.products.length / this.pageSize);
+  }
+
+
+  // Fonction pour trier
+  setSort(column: string) {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
   }
 }

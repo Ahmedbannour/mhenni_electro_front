@@ -27,4 +27,10 @@ export class ProductService {
 
     return this.http.get<any>(`${this.apiUrl}/${productId}`);
   }
+
+
+  saveProduct(productData: any): Observable<ApiResponse<Product>> {
+    console.log("Données envoyées au service :", productData);
+    return this.http.post<ApiResponse<Product>>(`${this.apiUrl}`, productData);
+  }
 }
