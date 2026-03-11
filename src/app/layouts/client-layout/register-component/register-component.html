@@ -8,16 +8,16 @@
 
       <div class="form-group">
         <label>First Name</label>
-        <input type="text" class="form-control" formControlName="firstName" />
-        <small class="error" *ngIf="submitted && f['firstName'].errors">
+        <input type="text" class="form-control" formControlName="nom" />
+        <small class="error" *ngIf="submitted && f['nom'].errors">
           First name is required
         </small>
       </div>
 
       <div class="form-group">
         <label>Last Name</label>
-        <input type="text" class="form-control" formControlName="lastName" />
-        <small class="error" *ngIf="submitted && f['lastName'].errors">
+        <input type="text" class="form-control" formControlName="prenom" />
+        <small class="error" *ngIf="submitted && f['prenom'].errors">
           Last name is required
         </small>
       </div>
@@ -50,11 +50,29 @@
 
       <div class="form-group">
         <label>Birth Date</label>
-        <input type="date" class="form-control" formControlName="birthDate" />
+        <input type="date" class="form-control" formControlName="date_naissance" />
         <small class="error"
-          *ngIf="submitted && f['birthDate'].errors?.['minAge']">
+          *ngIf="submitted && f['date_naissance'].errors?.['minAge']">
           You must be at least 12 years old
         </small>
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label">Région (Gouvernorat)</label>
+        <select class="form-select" formControlName="region" (change)="onRegionChange($event)">
+          <option value="" disabled selected>Choisir une région</option>
+          <option *ngFor="let r of regions" [value]="r.id">{{ r.label }}</option>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
+        <label class="form-label">Ville</label>
+        <select class="form-select" formControlName="ville">
+          <option [ngValue]="null" disabled selected>Choisir une ville</option>
+          <option *ngFor="let v of filteredVilles" [value]="v.id">
+            {{ v.label }} ({{ v.code_postal }})
+          </option>
+        </select>
       </div>
 
       <div class="form-group">

@@ -18,7 +18,24 @@ export class ProductsWidget {
   @Output() onSelect = new EventEmitter<any>();
   @Output() onAddSubCat = new EventEmitter<void>();
   @Output() onAddProduct = new EventEmitter<void>();
+  @Output() onEdit = new EventEmitter<any>();
+  @Output() onDelete = new EventEmitter<any>();
+  @Output() onView = new EventEmitter<any>();
 
+  onViewDetails(cat: any) {
+    this.onView.emit(cat);
+  }
+
+  onEditCategory(cat: any) {
+
+    console.log("emit edit : ", cat);
+    this.onEdit.emit(cat);
+  }
+
+  onDeleteCategory(cat: any) {
+    // Optionnel: ajouter un confirm() ici ou dans le parent
+    this.onDelete.emit(cat);
+  }
 
   private cdr = inject(ChangeDetectorRef);
 

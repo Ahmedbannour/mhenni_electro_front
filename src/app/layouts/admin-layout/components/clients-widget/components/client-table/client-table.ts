@@ -20,16 +20,16 @@ export class ClientTable implements OnInit{
   selectedClient: any = null;
   clientToDelete: any = null;
 
-    viewDetails(client: any) {
-      this.selectedClient = client;
-      // La modal est déclenchée par les attributs data-bs dans le HTML
-    }
-    ngOnInit(): void {
+  viewDetails(client: any) {
+    this.selectedClient = client;
+    // La modal est déclenchée par les attributs data-bs dans le HTML
+  }
+  ngOnInit(): void {
 
-      this.loadClients();
-    }
+    this.loadClients();
+  }
 
-    loadClients(): void {
+  loadClients(): void {
     this.loading = true;
 
     const request =  this.clientsService.getAllClients();

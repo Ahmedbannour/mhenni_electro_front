@@ -29,8 +29,8 @@ export class ProductService {
   }
 
 
-  saveProduct(productData: any): Observable<ApiResponse<Product>> {
-    console.log("Données envoyées au service :", productData);
-    return this.http.post<ApiResponse<Product>>(`${this.apiUrl}`, productData);
+  saveProduct(formData: FormData): Observable<ApiResponse<Product>> {
+    console.log("Données envoyées au service :", formData.values());
+    return this.http.post<ApiResponse<Product>>(`${this.apiUrl}`, formData);
   }
 }

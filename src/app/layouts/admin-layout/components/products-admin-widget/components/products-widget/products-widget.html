@@ -35,7 +35,12 @@
             <tr *ngFor="let prod of filteredProducts">
               <td>
                 <div class="d-flex align-items-center">
-                  <img [src]="prod.image || 'assets/images/products/s1.jpg'" class="rounded-circle" width="40" height="40">
+                  <img [src]="prod.image ? 'http://localhost:8081/uploads/' + prod.image : 'assets/images/products/s1.jpg'"
+                    class="rounded-circle me-3"
+                    width="45" height="45"
+                    alt="img"
+                    (error)="$any($event.target).src='assets/images/products/s1.jpg'">
+
                   <div class="ms-3">
                     <h6 class="fs-4 fw-semibold mb-0">{{ prod.label }}</h6>
                     <span class="fw-normal text-muted">ID: #{{ prod.id }}</span>
@@ -83,7 +88,7 @@
     </div>
   </ng-container>
 
-  <div class="col-12" *ngIf="!isLoading && categories.length === 0 && products.length === 0">
+  <ng-container class="col-12" *ngIf="!isLoading && categories.length === 0 && products.length === 0">
     <div class="card shadow-none border p-5 text-center bg-light-subtle rounded-4">
       <i class="ti ti-package-off fs-10 text-muted mb-3"></i>
       <h4 class="fw-bold">Cette catégorie est encore vierge</h4>
@@ -98,34 +103,66 @@
         </button>
       </div>
     </div>
-  </div>
+  </ng-container>
 
-</div>
 
-<div class="row">
-  <div class="col-md-6 col-lg-4 d-flex align-items-stretch" *ngFor="let cat of categories">
-    <div class="card w-100 prod-card border shadow-none cursor-pointer"
-         (click)="selectCategory(cat)"
-         style="transition: transform 0.2s; cursor: pointer;">
-      <div class="p-4 d-flex align-items-stretch h-100">
-        <div class="row w-100">
-          <div class="col-4 col-md-3 d-flex align-items-center">
-            <div class="bg-light-primary text-primary rounded p-3 d-flex align-items-center justify-content-center w-100">
-               <i class="ti ti-category fs-7"></i>
-            </div>
+  <ng-container *ngIf="!isLoading && categories.length > 0">
+    <div class="col-md-6 col-lg-4 d-flex align-items-stretch" *ngFor="let cat of categories">
+      <div class="card w-100 prod-card border shadow-none position-relative"
+          style="transition: transform 0.2s; cursor: pointer;">
+
+        <div class="position-absolute top-0 end-0 p-3" style="z-index: 10;">
+          <div class="dropdown dropstart">
+            <a href="javascript:void(0)" class="text-muted" id="dropdownCatMenu" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="ti ti-dots-vertical fs-6"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownCatMenu">
+              <li>
+                <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" (click)="onViewDetails(cat)">
+                  <i class="fs-4 ti ti-eye"></i> Détails
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" (click)="onEditCategory(cat)">
+                  <i class="fs-4 ti ti-edit"></i> Modifier
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center gap-3 text-danger" href="javascript:void(0)" (click)="onDeleteCategory(cat)">
+                  <i class="fs-4 ti ti-trash"></i> Supprimer
+                </a>
+              </li>
+            </ul>
           </div>
-          <div class="col-8 col-md-9 d-flex align-items-center">
-            <div>
-              <h6 class="fw-semibold text-dark fs-4 mb-1">{{ cat.name | uppercase }}</h6>
-              <p class="card-subtitle text-muted mb-2">{{ cat.description }}</p>
+        </div>
 
-              <span *ngIf="cat.subCategories?.length > 0" class="badge bg-light-primary text-primary">
-                {{ cat.subCategories.length }} Sous-catégories <i class="ti ti-chevron-right ms-1"></i>
-              </span>
+        <div class="p-4 d-flex align-items-stretch h-100 w-100" (click)="selectCategory(cat)">
+          <div class="row w-100">
+            <div class="col-4 col-md-3 d-flex align-items-center">
+              <div class="bg-light-primary text-primary rounded p-3 d-flex align-items-center justify-content-center w-100">
+                <i class="ti ti-category fs-7"></i>
+              </div>
+            </div>
+            <div class="col-8 col-md-9 d-flex align-items-center">
+              <div>
+                <h6 class="fw-semibold text-dark fs-4 mb-1">{{ cat.name | uppercase }}</h6>
+                <p class="card-subtitle text-muted mb-2 text-truncate" style="max-width: 150px;">{{ cat.description }}</p>
+
+                <span *ngIf="cat.subCategories?.length > 0" class="badge bg-light-primary text-primary">
+                  {{ cat.subCategories.length }} Sous-catégories <i class="ti ti-chevron-right ms-1"></i>
+                </span>
+                <span *ngIf="!cat.subCategories || cat.subCategories.length === 0" class="badge bg-light-secondary text-secondary">
+                  Catégorie finale
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+
+
 </div>
+

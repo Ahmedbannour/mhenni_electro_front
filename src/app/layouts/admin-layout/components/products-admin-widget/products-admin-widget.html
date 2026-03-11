@@ -57,8 +57,102 @@
     [currentCategoryName]="breadcrumb.length > 0 ? breadcrumb[breadcrumb.length - 1].name : 'Toutes les catégories'"
     (onSelect)="onCategorySelect($event)"
     (onAddSubCat)="handleAddSubCategory($event)"
-    (onAddProduct)="handleAddProduct($event)">
+    (onAddProduct)="handleAddProduct($event)"
+    (onView)="handleViewCategory($event)"
+    (onEdit)="handleEditCategory($event)"
+    (onDelete)="confirmDeleteCategory($event)"
+    >
   </app-products-widget>
+
+
+  <div class="modal fade" id="categoryFormModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">
+            <i class="ti ti-edit me-2"></i>{{ isEditMode ? 'Modifier la catégorie' : 'Nouvelle catégorie' }}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form [formGroup]="categoryForm" (ngSubmit)="submitCategory()">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Nom de la catégorie</label>
+              <input type="text" class="form-control" formControlName="name">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Description</label>
+              <textarea class="form-control" formControlName="description" rows="2"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Catégorie Parente</label>
+              <select class="form-select" formControlName="parent" [compareWith]="compareCategories">
+                <option [ngValue]="null">-- SANS PARENT (RACINE) --</option>
+                <option *ngFor="let p of leafCategories" [ngValue]="p">
+                  {{ p.name }}
+                </option>
+              </select>
+              <div class="form-text">Choisissez "Sans parent" pour placer la catégorie au niveau principal.</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary shadow-sm" [disabled]="categoryForm.invalid">
+              Enregistrer les modifications
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="categoryDetailsModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Détails de la catégorie</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" *ngIf="selectedCategory">
+          <div class="text-center mb-4">
+            <div class="bg-light-primary text-primary rounded-circle p-3 d-inline-block">
+              <i class="ti ti-category fs-8"></i>
+            </div>
+            <h4 class="mt-3 fw-bold">{{ selectedCategory.name }}</h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="text-muted">Description:</span>
+              <span>{{ selectedCategory.description || 'N/A' }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span class="text-muted">Sous-catégories:</span>
+              <span class="badge bg-primary">{{ selectedCategory.subCategories?.length || 0 }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center p-4">
+          <i class="ti ti-alert-triangle text-danger fs-9 mb-3"></i>
+          <h5 class="fw-semibold">Supprimer la catégorie ?</h5>
+          <p class="text-muted">Cette action est irréversible pour "{{ selectedCategory?.name }}".</p>
+          <div class="d-flex gap-2 justify-content-center mt-4">
+            <button class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+            <button class="btn btn-danger" (click)="executeDelete()">Oui, supprimer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
@@ -87,6 +181,16 @@
                 <label class="form-label fw-semibold">Date d'achat</label>
                 <input type="date" class="form-control" formControlName="date_achat">
               </div>
+
+              <div class="col-12 mb-3">
+                <label class="form-label fw-semibold">Image du produit</label>
+                <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*">
+                <div class="mt-2 text-center" *ngIf="imagePreview">
+                  <img [src]="imagePreview" class="rounded border shadow-sm" style="max-height: 120px;" alt="Preview">
+                  <button type="button" class="btn btn-sm btn-link text-danger d-block mx-auto" (click)="removeImage()">Supprimer l'image</button>
+                </div>
+              </div>
+
               <div class="col-12 mb-3">
                 <label class="form-label fw-semibold">Catégorie de destination</label>
                 <select class="form-select" formControlName="categorie">
@@ -95,9 +199,6 @@
                     {{ leaf.name }}
                   </option>
                 </select>
-                <div *ngIf="productForm.get('categorie')?.invalid && productForm.get('categorie')?.touched" class="text-danger fs-2">
-                  La catégorie est obligatoire.
-                </div>
               </div>
               <div class="col-12 mb-3">
                 <label class="form-label fw-semibold">Description</label>

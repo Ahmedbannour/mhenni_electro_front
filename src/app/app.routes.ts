@@ -13,6 +13,10 @@ import { AdminHome } from './layouts/admin-layout/components/admin-home/admin-ho
 import { ClientsWidget } from './layouts/admin-layout/components/clients-widget/clients-widget';
 import { DepotWidget } from './layouts/admin-layout/components/depot-widget/depot-widget';
 import { ProductsAdminWidget } from './layouts/admin-layout/components/products-admin-widget/products-admin-widget';
+import { GarantiesWidget } from './layouts/admin-layout/components/garanties-widget/garanties-widget';
+import { AssurancesWidget } from './layouts/admin-layout/components/assurances-widget/assurances-widget';
+import { EvenementsWidget } from './layouts/admin-layout/components/evenements-widget/evenements-widget';
+import { DonsWidget } from './layouts/admin-layout/components/dons-widget/dons-widget';
 
 export const routes: Routes = [
   // GROUPE CLIENT : Toutes ces routes utiliseront le ClientLayout (avec Navbar/Footer)
@@ -46,6 +50,10 @@ export const routes: Routes = [
       { path: 'clients', component: ClientsWidget },
       { path: 'depots', component: DepotWidget },
       { path: 'products', component: ProductsAdminWidget },
+      { path: 'garanties', component: GarantiesWidget },
+      { path: 'assurances', component: AssurancesWidget },
+      { path: 'evenements', component: EvenementsWidget },
+      { path: 'dons', component: DonsWidget },
       { path: 'home', component: AdminHome },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
 

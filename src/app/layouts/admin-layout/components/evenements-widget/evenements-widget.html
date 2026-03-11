@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-sm-flex d-block justify-content-between align-items-start mb-4">
+            <div>
+              <h4 class="card-title">Évènements</h4>
+              <p class="card-text text-muted">Gérez les dates et les libellés de vos futurs évènements.</p>
+            </div>
+            <button (click)="isEditMode ? cancelForm() : (showForm ? cancelForm() : showForm = true)"
+        [class]="showForm ? 'btn btn-outline-danger' : 'btn btn-primary'">
+  {{ showForm ? 'Annuler' : 'Ajouter un évènement' }}
+</button>
+          </div>
+
+          <div *ngIf="showForm" class="p-3 border rounded bg-light mb-4">
+            <form [formGroup]="eventForm" (ngSubmit)="submit()">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label class="form-label">Libellé</label>
+                  <input type="text" class="form-control" formControlName="label" placeholder="Nom de l'évènement">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Date Début</label>
+                  <input type="datetime-local" class="form-control" formControlName="date_debut">
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Date Fin</label>
+                  <input type="datetime-local" class="form-control" formControlName="date_fin">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                  <button type="submit" class="btn btn-success w-100" [disabled]="eventForm.invalid">
+                    Enregistrer
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="eventForm.errors?.['dateInvalid']" class="text-danger mt-2 small">
+                Attention : La date de début doit être strictement antérieure à la date de fin.
+              </div>
+            </form>
+          </div>
+
+          <div [hidden]="showForm">
+            <app-evenements-table (onEdit)="handleEdit($event)"></app-evenements-table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
