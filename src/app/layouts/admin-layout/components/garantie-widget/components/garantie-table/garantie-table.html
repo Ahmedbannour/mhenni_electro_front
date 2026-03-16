@@ -1,0 +1,169 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <div class="input-group w-50 shadow-sm">
+    <span class="input-group-text bg-white border-end-0">
+      <i class="ti ti-search text-primary"></i>
+    </span>
+    <input
+      type="text"
+      class="form-control border-start-0 ps-0"
+      placeholder="Tapez pour filtrer instantanément..."
+      [(ngModel)]="searchTerm"
+      (input)="currentPage = 1">
+  </div>
+
+  <div class="d-flex align-items-center gap-2">
+    <span class="fs-2 text-muted">Afficher</span>
+    <select class="form-select form-select-sm w-auto" [(ngModel)]="pageSize" (change)="currentPage = 1">
+      <option [value]="5">5</option>
+      <option [value]="10">10</option>
+      <option [value]="50">50</option>
+    </select>
+  </div>
+</div>
+
+<table class="table table-responsive text-nowrap mb-0 align-middle">
+    <thead class="text-dark">
+    <tr>
+      <th>
+        <h6 class="fs-4 fw-semibold mb-0">label</h6>
+      </th>
+      <th>
+        <h6 class="fs-4 fw-semibold mb-0 text-center">date de début</h6>
+      </th>
+      <th>
+        <h6 class="fs-4 fw-semibold mb-0 text-center">date d'expiration</h6>
+      </th>
+      <th>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let garantie of filteredGaranties" class="border-top">
+       <td>{{garantie.label}}</td>
+       <td class="text-center">{{garantie.date_debut | date:'short' }}</td>
+       <td class="text-center">{{garantie.date_expiration | date:'short'}}</td>
+        <td>
+          <div class="dropdown dropstart">
+            <a href="javascript:void(0)" class="text-muted" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="ti ti-dots fs-5"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li>
+                <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" (click)="viewDetails(garantie)" data-bs-toggle="modal" data-bs-target="#depotDetailsModal">
+                  <i class="fs-4 ti ti-user-circle"></i>Details
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" (click)="editGarantie(garantie)">
+                  <i class="fs-4 ti ti-edit"></i>Modifier
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item d-flex align-items-center gap-3" href="javascript:void(0)" href="javascript:void(0)"
+                  (click)="deleteGarantie(garantie)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#deleteConfirmModal"><i class="fs-4 ti ti-trash"></i>Delete</a>
+              </li>
+            </ul>
+          </div>
+        </td>
+       </tr>
+      <tr *ngIf="filteredGaranties.length === 0">
+        <td colspan="4" class="text-center py-4 text-muted">
+          Aucune garantie ne correspond à "{{searchTerm}}"
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-between align-items-center mt-3" *ngIf="totalPages > 1">
+  <small class="text-muted">Page {{currentPage}} sur {{totalPages}}</small>
+  <ul class="pagination pagination-sm mb-0">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <button class="page-link" (click)="currentPage = currentPage - 1">Précédent</button>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <button class="page-link" (click)="currentPage = currentPage + 1">Suivant</button>
+    </li>
+  </ul>
+</div>
+
+
+<!-- details modal  -->
+
+<div class="modal fade" id="clientDetailsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header border-bottom-0 pb-0">
+        <h5 class="fw-semibold text-dark mb-0">Détails d'evenement</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body text-center py-4" *ngIf="selectedGarantie">
+        <div class="position-relative d-inline-block mb-3">
+          <img [src]="selectedGarantie.image || '../assets/images/profile/user-2.jpg'"
+               class="rounded-circle border border-3 border-primary p-1"
+               width="100" height="100">
+          <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-success border border-2 border-white p-2">
+            <span class="visually-hidden">En ligne</span>
+          </span>
+        </div>
+
+        <h4 class="fw-bold mb-1">{{selectedGarantie.date_debut | date:'short'}}</h4>
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 mb-4">
+          {{selectedGarantie.date_expiration | date:'short'}}
+        </span>
+
+        <div class="text-start bg-light rounded-3 p-3 mx-2">
+          <div class="d-flex align-items-center mb-3">
+            <i class="ti ti-mail fs-5 text-primary me-3"></i>
+            <div>
+              <p class="text-muted mb-0 fs-2">Email Address</p>
+              <h6 class="mb-0 fw-semibold">{{selectedGarantie.label}}</h6>
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <i class="ti ti-phone fs-5 text-primary me-3"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer border-top-0 pt-0">
+        <button type="button" class="btn btn-light-danger text-danger font-medium w-100" data-bs-dismiss="modal">
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- confirmation modal  -->
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-body text-center p-4">
+        <div class="text-danger mb-3">
+          <i class="ti ti-alert-circle display-4"></i>
+        </div>
+
+        <h5 class="fw-bold mb-2">Supprimer la garantie  ?</h5>
+        <p class="text-muted fs-3 mb-4">
+          Êtes-vous sûr de vouloir supprimer <strong>{{garantiesToDelete?.label }}</strong> ? Cette action est irréversible.
+        </p>
+
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-light w-100 py-2 fw-semibold" data-bs-dismiss="modal">
+            Annuler
+          </button>
+          <button type="button" class="btn btn-danger w-100 py-2 fw-semibold"
+                  (click)="confirmDeletion()" data-bs-dismiss="modal">
+            Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
